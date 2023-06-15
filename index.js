@@ -210,7 +210,8 @@ app.get('/:username/first',function(req,res){
 });
 
 // 6. login
-// Using just username, no password or any other authentication to keep it simple
+// Using basic other authentication to keep it simple
+// Token-based or Session-based authentication can be added if needed
 app.post('/login',function(req,res){
     const username = req.body.username;
     const password = req.body.password;
