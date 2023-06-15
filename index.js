@@ -213,15 +213,25 @@ app.get('/:username/first',function(req,res){
 // Using just username, no password or any other authentication to keep it simple
 app.post('/login',function(req,res){
     const username = req.body.username;
+    const password = req.body.password;
 
-    User.findOne({ username: username})
+    User.findOne({ username: username })
     .then((user) => {
-        if(!user){
-            res.status(404).send('User not found');
+      if (!user) {
+        res.status(404).send('User not found');
+      } else {
+        // Compare the provided password with the stored password
+        if (password === user.password) {
+          res.send('Login successful');
+        } else {
+          res.status(401).send('Invalid password');
         }
+      }
     })
-
-    res.send("Login successful")
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error while finding the user');
+    });
 });
 
 
