@@ -30,10 +30,12 @@ app.get('/',function(req,res){
 // Create a new user
 app.post('/users/add', function(req, res) {
     const username = req.body.username;
+    const password = req.body.password;
   
     // Create a new user object
     const newUser = new User({
-      username: username
+      username: username ,
+      password : password
     });
   
     // Save the user object to the database
