@@ -63,9 +63,9 @@ app.get('/users/all', function(req, res) {
   });
 
 // 1. Add a to-do
-app.post('/users/:username/todos',function(req,res){
-    const username = req.params.username;
-    const todo = req.body.todo;
+app.post('/users/addtodos',function(req,res){
+    const username = req.body.username;
+    const todo = req.body.todo; 
     
 
   // Generate a unique ID for the todo task
@@ -100,8 +100,8 @@ app.post('/users/:username/todos',function(req,res){
 });
 
 // 2. Change a to-do
-app.post('/:username/change/:todoid',function(req,res){
-    const username = req.params.username;
+app.post('/users/change/:todoid',function(req,res){
+    const username = req.body.username;
     const todoid = req.params.todoid;
     // Get the user from the database
     User.findOne({ username: username }).then(function(user) {
@@ -135,8 +135,8 @@ app.post('/:username/change/:todoid',function(req,res){
 });
 
 // 3. Delete a to-do (do a soft delete)
-app.delete('/:username/:todoid',function(req,res){
-    const username = req.params.username;
+app.delete('/users/todo/:todoid',function(req,res){
+    const username = req.body.username;
   const todoid = req.params.todoid;
 
   User.findOne({ username: username })
@@ -169,8 +169,8 @@ app.delete('/:username/:todoid',function(req,res){
 });
 
 // 4. List all todos
-app.get('/:username/all',function(req,res){
-    const username = req.params.username;
+app.get('/users/todo/all',function(req,res){
+    const username = req.body.username;
 
     User.findOne({ username: username })
       .then((user) => {
@@ -188,8 +188,8 @@ app.get('/:username/all',function(req,res){
 
 // 5. Return a todo
 // Assuming the first todo is expected 
-app.get('/:username/first',function(req,res){
-    const username = req.params.username;
+app.get('/user/first',function(req,res){
+    const username = req.body.username;
 
     User.findOne({ username: username })
       .then((user) => {
